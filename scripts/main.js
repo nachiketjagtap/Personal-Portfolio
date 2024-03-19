@@ -162,24 +162,31 @@ const themeButton = document.getElementById("theme-button");
 const darkTheme = "dark-theme";
 const iconTheme = "uil-sun";
 
+// Function to set dark theme by default
+const setDarkTheme = () => {
+    document.body.classList.add(darkTheme);
+    themeButton.classList.add(iconTheme);
+    localStorage.setItem("selected-theme", "dark");
+    localStorage.setItem("selected-icon", "uil-moon");
+};
+
 // Previously selected topic (if user selected)
 const selectedTheme = localStorage.getItem("selected-theme");
 const selectedIcon = localStorage.getItem("selected-icon");
 
 // obtain the current theme
 const getCurrentTheme = () =>
-    document.body.classList.contains(darkTheme) ?  "light": "dark";
+    document.body.classList.contains(darkTheme) ? "dark" : "light";
 const getCurrentIcon = () =>
     themeButton.classList.contains(iconTheme) ? "uil-moon" : "uil-sun";
 
-if (selectedTheme) {
-    
-    themeButton.classList[selectedIcon === "uil-moon" ? "add" : "remove"](
-        iconTheme
-    );
-    document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
-        darkTheme 
-    );
+// If no theme is selected previously, set dark theme by default
+if (!selectedTheme) {
+    setDarkTheme();
+} else {
+    // Apply previously selected theme
+    document.body.classList[selectedTheme === "dark" ? "add" : "remove"](darkTheme);
+    themeButton.classList[selectedIcon === "uil-moon" ? "add" : "remove"](iconTheme);
 }
 
 // Activate/Deactivate the theme manually with the button
